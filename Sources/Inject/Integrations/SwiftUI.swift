@@ -2,28 +2,29 @@ import Foundation
 import SwiftUI
 
 #if DEBUG
-public extension SwiftUI.View {
-    func enableInjection() -> some SwiftUI.View {
+@propertyWrapper
+public struct Injection: DynamicProperty {
+    @ObservedObject private var iO = Inject.observer
+    public init(animation: Animation? = nil) {
         _ = Inject.load
-        
-        // Use AnyView in case the underlying view structure changes during injection.
-        // This is only in effect in debug builds.
-        return AnyView(self)
+        Inject.animation = animation
     }
-
+    public private(set) var wrappedValue: Void = ()
+}
+public extension SwiftUI.View {
     func onInjection(callback: @escaping (Self) -> Void) -> some SwiftUI.View {
         onReceive(Inject.observer.objectWillChange, perform: {
             callback(self)
         })
-        .enableInjection()
     }
 }
 
 #else
 public extension SwiftUI.View {
-    @inlinable @inline(__always)
-    func enableInjection() -> Self { self }
-
+    @propertyWrapper
+    public struct Injection {
+        public private(set) var wrappedValue: Void = ()
+    }
     @inlinable @inline(__always)
     func onInjection(callback: @escaping (Self) -> Void) -> some SwiftUI.View {
         self

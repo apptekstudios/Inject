@@ -71,17 +71,16 @@ You can either add `import Inject` in individual files in your project or use
 `@_exported import Inject` in your project target to have it automatically available in all its files.
 
 #### **SwiftUI**
-Just 2 steps to enable injection in your `SwiftUI` Views
+Just 1 step to enable injection in your `SwiftUI` Views
 
-- Add `@ObservedObject private var iO = Inject.observer` variable
-- call `.enableInjection()` at the end of your body definition
+- add `@Injection var inject` to your struct
 
 > *Remember you **don't need** to remove this code when you are done, it's NO-OP in production builds.*
 
-If you want to see your changes in action, you can enable an optional `Animation` variable on `Inject.animation` that will be used when ever new source code is injected into your application.
+If you want to see your changes in action, you can enable an optional `Animation` variable that will be used when ever new source code is injected into your view.
 
 ```swift
-Inject.animation = .interactiveSpring()
+@Injection(animation: .interactiveSpring()) var inject
 ```
 
 Using `Inject` is demoed in this [example app](https://github.com/MarcoEidinger/InjectSwiftUIExample) 
