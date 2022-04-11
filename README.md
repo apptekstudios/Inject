@@ -71,9 +71,10 @@ You can either add `import Inject` in individual files in your project or use
 `@_exported import Inject` in your project target to have it automatically available in all its files.
 
 #### **SwiftUI**
-Just 1 step to enable injection in your `SwiftUI` Views
+Just 2 steps to enable injection in your `SwiftUI` Views
 
 - add `@Injection var inject` to your struct
+- call `.enableInjection()` at the end of your body definition
 
 > *Remember you **don't need** to remove this code when you are done, it's NO-OP in production builds.*
 

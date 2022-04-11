@@ -12,10 +12,11 @@ public struct Injection: DynamicProperty {
     public private(set) var wrappedValue: Void = ()
 }
 public extension SwiftUI.View {
-    func onInjection(callback: @escaping (Self) -> Void) -> some SwiftUI.View {
-        onReceive(Inject.observer.objectWillChange, perform: {
+    func enableInjection() -> some SwiftUI.View { AnyView(self) }
+    func enableInjection(callback: @escaping (Self) -> Void) -> some SwiftUI.View {
+        AnyView(self.onReceive(Inject.observer.objectWillChange, perform: {
             callback(self)
-        })
+        }))
     }
 }
 
@@ -26,7 +27,9 @@ public extension SwiftUI.View {
         public private(set) var wrappedValue: Void = ()
     }
     @inlinable @inline(__always)
-    func onInjection(callback: @escaping (Self) -> Void) -> some SwiftUI.View {
+    func enableInjection() -> some SwiftUI.View { self }
+    @inlinable @inline(__always)
+    func enableInjection(callback: @escaping (Self) -> Void) -> some SwiftUI.View {
         self
     }
 }
