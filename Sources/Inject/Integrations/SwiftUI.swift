@@ -9,7 +9,7 @@ public struct Injection: DynamicProperty {
         _ = Inject.load
         Inject.animation = animation
     }
-    public private(set) var wrappedValue: Void = ()
+    public private(set) var wrappedValue: Inject.Type = Inject.self
 }
 public extension SwiftUI.View {
     func enableInjection() -> some SwiftUI.View { AnyView(self) }
