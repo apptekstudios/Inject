@@ -21,12 +21,12 @@ public extension SwiftUI.View {
 }
 
 #else
+@propertyWrapper
+public struct Injection {
+    public init(animation: @autoclosure () -> Animation? = nil) { }
+    public let wrappedValue = 0
+}
 public extension SwiftUI.View {
-    @propertyWrapper
-    public struct Injection {
-        public init(animation: Animation? = nil) { }
-        public private(set) var wrappedValue: Inject.Type = Inject.self
-    }
     @inlinable @inline(__always)
     func enableInjection() -> Self { self }
     @inlinable @inline(__always)
