@@ -24,7 +24,7 @@ public extension SwiftUI.View {
 @propertyWrapper
 public struct Injection {
     public init(animation: @autoclosure () -> Animation? = nil) { }
-    public private(set) var wrappedValue: Void
+    public let wrappedValue = 0
 }
 public extension SwiftUI.View {
     @inlinable @inline(__always)
